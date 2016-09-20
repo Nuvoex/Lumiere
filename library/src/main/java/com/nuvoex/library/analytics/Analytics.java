@@ -11,27 +11,33 @@ public class Analytics {
 
     private static AnalyticsService mAnalyticsService;
 
-    public static AnalyticsService getService(Context context) {
+    public static void initialize(Context context) {
         if (mAnalyticsService == null) {
-            mAnalyticsService = new FirebaseAnalyticsService(context);
+            mAnalyticsService = new FirebaseAnalyticsService(context.getApplicationContext());
+        }
+    }
+
+    public static AnalyticsService getService() {
+        if (mAnalyticsService == null) {
+            throw new RuntimeException("Analytics must be initialized first");
         }
 
         return mAnalyticsService;
     }
 
-    public static void trackEvent(Context context, String event, Map<String, String> params) {
-        getService(context).trackEvent(event, params);
+    public static void trackEvent(String event, Map<String, String> params) {
+        getService().trackEvent(event, params);
     }
 
-    public static void trackView(Context context, String view, Map<String, String> params) {
-        getService(context).trackView(view, params);
+    public static void trackView(String view, Map<String, String> params) {
+        getService().trackView(view, params);
     }
 
-    public static void setProperties(Context context, Map<String, String> params) {
-        getService(context).setProperties(params);
+    public static void setProperties(Map<String, String> params) {
+        getService().setProperties(params);
     }
 
-    public static void setIdentifier(Context context, String id) {
-        getService(context).setIdentifier(id);
+    public static void setIdentifier(String id) {
+        getService().setIdentifier(id);
     }
 }

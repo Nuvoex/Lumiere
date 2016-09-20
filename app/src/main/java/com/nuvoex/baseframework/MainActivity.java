@@ -28,8 +28,9 @@ public class MainActivity extends LumiereBaseActivity implements Permission.Perm
         setContentView(R.layout.activity_main);
         checkPermissionCamera();
 
+        Analytics.initialize(this);
         Map<String, String> params = new HashMap<>();
-        Analytics.trackView(this, "Home", params);
+        Analytics.trackView("Home", params);
     }
 
     private void checkPermissionCamera() {
